@@ -1,0 +1,60 @@
+@model CONSUMEAPI.Models.StateModel
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">State Form</h5>
+
+        <!-- Floating Labels Form -->
+        <form class="row g-3" asp-controller="State" asp-action="StateAddEdit" method="post">
+            @Html.HiddenFor(x=>x.StateID)
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingName"  asp-for="StateName">
+                    <label for="floatingName">State Name</label>
+                    <span asp-validation-for="StateName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingName"  asp-for="StateCode">
+                    <label for="floatingName">State Code</label>
+                    <span asp-validation-for="StateCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-floating">
+                    <select class="form-select" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList, "CountryID", "CountryName"))">
+                        <option value="">Select CountryID</option>
+                        <span asp-validation-for="CountryID" class="text-danger"></span>
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form><!-- End floating Labels Form -->
+    </div>
+</div>
+@* <script> *@
+@*     $('#CountryID').change(function () { *@
+@*         $.post('@Url.Action("GetStatesByCountry")', { CountryID: $(this).val() }, function (data) { *@
+@*             $('#StateID').empty().append('<option>Select State</option>'); *@
+@*             $.each(data, function (i, state) { *@
+@*                 $('#StateID').append(⁠ <option value="${state.StateID}">${state.StateName}</option> ⁠); *@
+@*             }); *@
+@*         }); *@
+@*     }); *@
+@* </script> *@
+@* <script> *@
+@*     function AddPopup(){ *@
+@*         alert("Data Added Successfully"); *@
+@*     } *@
+@* </script> *@
+@section Scripts
+{@{
+await Html.RenderPartialAsync("_ValidationScriptsPartial");
+ }}
+
+

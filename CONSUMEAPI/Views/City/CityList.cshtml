@@ -1,0 +1,77 @@
+@model IEnumerable<CONSUMEAPI.Models.CityModel>
+@TempData["Message"]
+<div class="pagetitle">
+    <h1>City List</h1>
+    <nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="breadcrumb-item">Tables</li>
+            <li class="breadcrumb-item active">City</li>
+
+        </ol>
+    </nav>
+</div><!-- End Page Title -->
+
+<section class="section">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">City</h5>
+                    <a asp-controller="City" asp-action="CityAdd"><button type="button" class="btn btn-primary">Add City</button>
+                    </a>
+
+
+                    <!-- Table with stripped rows -->
+                    <table class="table datatable">
+                        <thead>
+                        <tr>
+                            <th>CityID</th>
+                            <th>CityName</th>
+                            <th>Pincode</th>
+                            <th>CountryName</th>
+                            <th>StateName</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var city in Model)
+                        {
+                        <tr>
+                            <td>@city.CityID</td>
+                            <td>@city.CityName</td>
+                            <td>@city.PinCode</td>
+                            <td>@city.CountryID</td>
+                            <td>@city.StateID</td>
+                            <td>
+                                <a  href="@Url.Action("CityAdd","City",new{CityID=city.CityID})">
+                                    <button type="button" class="btn btn-success"><i class="bi bi-pencil"></i></button>
+                                </a>
+
+                                <a href="@Url.Action("Delete","City",new{CityID=city.CityID})">
+                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                </a>
+                            </td>
+                        </tr>
+                        }
+                        </tbody>
+                    </table>
+                    <!-- End Table with stripped rows -->
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script>
+    function Deletepopup(ProductID){
+        if(confirm("Are you sure")){
+            window.location.href="/Product/ProductDelete/?ProductID="+ProductID;
+        }
+
+    }
+
+</script>
+<!-- End #main -->

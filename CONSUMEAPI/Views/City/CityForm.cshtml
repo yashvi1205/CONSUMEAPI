@@ -1,0 +1,65 @@
+@model CONSUMEAPI.Models.CityModel
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">City Form</h5>
+
+        <!-- Floating Labels Form -->
+        <form class="row g-3" asp-controller="City" asp-action="CityAddEdit" method="post">
+            @Html.HiddenFor(x=>x.CityID)
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingName"  asp-for="CityName">
+                    <label for="floatingName">City Name</label>
+                    <span asp-validation-for="CityName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingName"  asp-for="PinCode">
+                    <label for="floatingName">Pin Code</label>
+                    <span asp-validation-for="PinCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-floating">
+                    <select class="form-select" asp-for="CountryID" asp-items="@(new SelectList(ViewBag.CountryList, "CountryID", "CountryName"))">
+                        <option value="">Select CountryID</option>
+                        <span asp-validation-for="CountryID" class="text-danger"></span>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-floating">
+                    <select class="form-select" asp-for="StateID" asp-items="@(new MultiSelectList(ViewBag.StateList, "StateID", "StateName"))">
+                        <option value="">Select StateID</option>
+                        <span asp-validation-for="StateID" class="text-danger"></span>
+                    </select>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form><!-- End floating Labels Form -->
+       
+    </div>
+</div>
+<script>
+    $('#CountryID').change(function () {
+        $.post('@Url.Action("GetStatesByCountry")', { CountryID: $(this).val() }, function (data) {
+            $('#StateID').empty().append('<option>Select State</option>');
+            $.each(data, function (i, states) {
+                $('#StateID').append(<option value="${states.StateID}">${states.StateName}</option>);
+            });
+        });
+    });
+</script>
+
+@section Scripts
+{@{
+await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}}
+
+

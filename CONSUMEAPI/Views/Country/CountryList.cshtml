@@ -1,0 +1,71 @@
+@model IEnumerable<CONSUMEAPI.Models.CountryModel>
+@TempData["Message"]
+    <div class="pagetitle">
+      <h1>Country List</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Home</a></li>
+          <li class="breadcrumb-item">Tables</li>
+          <li class="breadcrumb-item active">Country</li>
+
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Country</h5>
+              <a asp-controller="Country" asp-action="CountryAdd"><button type="button" class="btn btn-primary">Add Country</button>
+              </a>
+
+
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                <tr>
+                  <th>CountryID</th>
+                  <th>CountryName</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var country in Model)
+                {
+                  <tr>
+                    <td>@country.CountryID</td>
+                    <td>@country.CountryName</td>
+                    <td>
+                      <a  href="@Url.Action("CountryAdd","Country",new{CountryID=country.CountryID})">
+                        <button type="button" class="btn btn-success"><i class="bi bi-pencil"></i></button>
+                      </a>
+
+                      <a href="@Url.Action("Delete","Country",new{CountryID=country.CountryID})">
+                        <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                      </a>
+                    </td>
+                  </tr>
+                }
+                </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+<script>
+  function Deletepopup(ProductID){
+    if(confirm("Are you sure")){
+    window.location.href="/Product/ProductDelete/?ProductID="+ProductID;
+    }
+    
+  }
+  
+</script>
+  <!-- End #main -->

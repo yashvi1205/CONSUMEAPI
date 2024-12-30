@@ -1,0 +1,33 @@
+@model CONSUMEAPI.Models.CountryModel
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Country Form</h5>
+
+        <!-- Floating Labels Form -->
+        <form class="row g-3" asp-controller="Country" asp-action="CountryAddEdit" method="post">
+            @Html.HiddenFor(x=>x.CountryID)
+            <div class="col-md-12">
+                <div class="form-floating">
+                    <input type="text" class="form-control" id="floatingName"  asp-for="CountryName">
+                    <label for="floatingName">Country Name</label>
+                    <span asp-validation-for="CountryName" class="text-danger"></span>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+            </div>
+        </form><!-- End floating Labels Form -->
+    </div>
+</div>
+@* <script> *@
+@*     function AddPopup(){ *@
+@*         alert("Data Added Successfully"); *@
+@*     } *@
+@* </script> *@
+@section Scripts
+{@{
+     await Html.RenderPartialAsync("_ValidationScriptsPartial");
+ }}
